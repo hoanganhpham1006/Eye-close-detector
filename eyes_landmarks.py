@@ -19,6 +19,8 @@ predictor = dlib.shape_predictor("./shape_predictor_68_face_landmarks.dat")
 
 #Prediction
 image = cv2.imread("./close.jpg")
+
+#Resize for performance
 if image.shape[1] > 500:
     image = imutils.resize(image, width=500, inter=cv2.INTER_CUBIC)
 gray = cv2.cvtColor(image, cv2.COLOR_BGR2GRAY)
@@ -56,4 +58,5 @@ for (i, rect) in enumerate(rects):
                 count += 1
 cv2.putText(image, "CLOSED EYES: " + str(count), (10, 30), cv2.FONT_HERSHEY_SIMPLEX, 0.7, (0, 0, 255), 2)
 cv2.imshow("Closed_eyes", image)
+cv2.imwrite("After_close.jpg", image)
 cv2.waitKey(0)
